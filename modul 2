@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Embark on a culinary adventure with Taste of Travel, exploring Indonesian flavors and recipes.">
+    <title>Taste of Travel - Soto Ayam</title>
+</head>
+<body>
+    <h1>Embark on a Culinary Adventure</h1>
+    
+    <h2>Discover the Flavors of Indonesia</h2>
+    <h3>Soto Ayam: A Traditional Indonesian Delight</h3>
+    
+    <p>Soto ayam adalah makanan khas Indonesia berupa sup ayam berkuah kuning atau bening yang kaya akan rempah. Hidangan ini biasanya disajikan dengan nasi, soun, telur rebus, dan taburan bawang goreng.</p>
+    
+    <blockquote>
+        <p><q>The secret to delicious Soto Ayam lies in the rich combination of aromatic spices and flavorful chicken broth.</q></p>
+        <footer>- Indonesian Culinary Tradition</footer>
+    </blockquote>
+    
+    <h3>Ingredients:</h3>
+    <ul>
+        <li><strong>Chicken:</strong> 500g</li>
+        <li><strong>Lemongrass:</strong> 2 stalks</li>
+        <li><strong>Kaffir Lime Leaves:</strong> 3 leaves</li>
+        <li><strong>Turmeric:</strong> 2 cm</li>
+        <li><strong>Ginger:</strong> 2 cm</li>
+        <li><strong>Garlic:</strong> 4 cloves</li>
+        <li><strong>Shallots:</strong> 5 cloves</li>
+        <li><strong>Vermicelli:</strong> 100g</li>
+        <li><strong>Boiled Eggs:</strong> 2 eggs</li>
+        <li><strong>Salt and Pepper:</strong> To taste</li>
+    </ul>
+    
+    <h3>Preparation:</h3>
+    <ol>
+        <li><em>Boil the chicken in water until tender and the broth becomes flavorful.</em></li>
+        <li><em>Grind the turmeric, ginger, garlic, and shallots into a spice paste.</em></li>
+        <li><em>Sauté the spice paste until fragrant, then add lemongrass and kaffir lime leaves.</em></li>
+        <li><em>Add the sautéed spices to the chicken broth and simmer for 15 minutes.</em></li>
+        <li><em>Remove the chicken, shred the meat, and return it to the broth if desired.</em></li>
+        <li><em>Season with salt and pepper to taste.</em></li>
+        <li><em>Serve the soup with vermicelli, boiled eggs, and fried shallots.</em></li>
+    </ol>
+    
+    <h3>Cooking Tips:</h3>
+    <ul>
+        <li><sup>1</sup> teaspoon of ground coriander can enhance the traditional flavor.</li>
+        <li><sub>1</sub> tablespoon of fried shallots adds a delicious aroma and texture.</li>
+        <li>Serve with lime wedges and sambal for extra flavor.</li>
+    </ul>
+    
+    <img src="https://sogood.id/wp-content/uploads/2018/08/Resep-Soto-Ayam-Goreng-Madura.jpg" alt="Traditional Indonesian Soto Ayam">
+    <br><br>
+    
+    <table>
+        <caption>Recipe Details</caption>
+        <tr>
+            <th>Ingredient</th>
+            <th>Quantity</th>
+        </tr>
+        <tr>
+            <td>Chicken</td>
+            <td>500g</td>
+        </tr>
+        <tr>
+            <td>Lemongrass</td>
+            <td>2 stalks</td>
+        </tr>
+        <tr>
+            <td>Kaffir Lime Leaves</td>
+            <td>3 leaves</td>
+        </tr>
+        <tr>
+            <td>Turmeric</td>
+            <td>2 cm</td>
+        </tr>
+        <tr>
+            <td>Vermicelli</td>
+            <td>100g</td>
+        </tr>
+        <tr>
+            <td colspan="2"><strong>Preparation Time:</strong> 45 minutes</td>
+        </tr>
+        <tr>
+            <td colspan="2"><strong>Serving Suggestions:</strong> Serve with steamed rice, boiled eggs, lime wedges, and sambal.</td>
+        </tr>
+    </table>
+    
+</body>
+</html>
