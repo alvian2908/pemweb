@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Indoor Plants</title>
+    <meta name="description" content="Explore a variety of indoor plants for your home or office.">
+    <meta charset="UTF-8">
+</head>
+<body>
+    <!-- Title -->
+    <h1>Indoor Plants</h1>
+
+    <!-- Peace Lily Section -->
+    <h2>Bunga Melati</h2>
+    <p>Bunga Melati, Bunga Ini mahal Karena Wangi nya sangat Harum</p>
+    <p>Price: Rp.100.000</p>
+    <img src="https://i.pinimg.com/564x/93/42/9d/93429dbff92d990391ed2c6580088d5d.jpg" alt="Peace Lily">
+
+    <!-- Zanzibar Gem Section -->
+    <h2>Bunga Mawar</h2>
+    <p>Bunga Mawar Sangat Cantik Dan Sangat Indah Di Halaman Rumah .</p>
+    <p>Price: Rp.150.000</p>
+    <img src="https://i.pinimg.com/736x/fc/72/77/fc727771207a4ca084a50c030b0d7f07.jpg" alt="Zanzibar Gem">
+</body>
+</html>
