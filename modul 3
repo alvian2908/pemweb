@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Discover Lionel Messi, his football journey, greatest achievements, and memorable moments.">
+    <title>Lionel Messi: The Football Legend</title>
+</head>
+<body>
+
+<h1>Welcome to Lionel Messi's Football World</h1>
+
+<p>
+    Lionel Messi is one of the greatest football players of all time.
+    He is known for his incredible dribbling, amazing goals, creativity,
+    and outstanding achievements with his clubs and the Argentina national team.
+</p>
+
+<img src="https://commons.wikimedia.org/wiki/Special:FilePath/Lionel-Messi-Argentina-2022-FIFA-World-Cup.jpg"
+     alt="Lionel Messi">
+
+<h2>Watch Lionel Messi's Highlights</h2>
+
+<p>
+    Watch Lionel Messi's amazing goals, skills, assists, and memorable
+    moments on the football field.
+</p>
+
+<iframe
+    width="560"
+    height="315"
+    src="https://www.youtube.com/embed?listType=search&list=Lionel%20Messi%20highlights"
+    title="Lionel Messi Football Highlights"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen>
+</iframe>
+
+<h2>Lionel Messi's Achievements</h2>
+
+<ul>
+    <li>FIFA World Cup Champion in 2022 with Argentina.</li>
+    <li>Multiple-time Ballon d'Or winner.</li>
+    <li>One of Barcelona's all-time leading goalscorers.</li>
+    <li>Winner of multiple domestic and international trophies.</li>
+</ul>
+
+<h2>Memorable Moments</h2>
+
+<p>Explore some of Lionel Messi's most memorable football moments:</p>
+
+<ul>
+    <li>Winning the 2022 FIFA World Cup with Argentina.</li>
+    <li>Scoring spectacular goals for Barcelona.</li>
+    <li>Creating incredible assists and dribbling past defenders.</li>
+    <li>Leading Argentina to international success.</li>
+</ul>
+
+<h2>Follow Lionel Messi</h2>
+
+<p>Stay updated with his latest news and football activities:</p>
+
+<a href="https://www.instagram.com/leomessi/" target="_blank">Instagram</a><br>
+<a href="https://www.facebook.com/leomessi/" target="_blank">Facebook</a><br>
+<a href="https://www.youtube.com/results?search_query=lionel+messi+highlights" target="_blank">Watch Messi Videos on YouTube</a>
+
+<h2>About This Page</h2>
+
+<p>
+    This webpage is dedicated to Lionel Messi and his incredible journey
+    in the world of football. Enjoy watching his highlights and learning
+    about his achievements.
+</p>
+
+</body>
+</html>
