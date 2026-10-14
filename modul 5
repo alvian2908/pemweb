@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Green Earth Environmental Community</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .center-and-space-content {
+            text-align: center;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="center-and-space-content">
+            <img src="https://www.nist.gov/sites/default/files/images/2021/10/21/global-g88705ec57_1280.png"
+                 alt="Green Earth Community Logo">
+            <p>Welcome to Green Earth Environmental Community</p>
+        </div>
+    </header>
+
+    <nav role="navigation">
+        <ul>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#services">Our Programs</a></li>
+            <li><a href="#events">Events</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Decorative banner marked to be ignored by screen readers -->
+    <div class="banner">
+        <img src="https://www.pngwing.com/id/free-png-awpus"
+             alt="" aria-hidden="true">
+    </div>
+
+    <main>
+        <section id="about">
+            <h2>About Us</h2>
+            <p>
+                Green Earth Environmental Community is dedicated to protecting
+                nature and creating a cleaner, healthier environment.
+                We encourage people to take action against pollution,
+                reduce waste, and preserve our natural resources.
+            </p>
+            <p>
+                <img src="https://st4.depositphotos.com/35446306/38056/v/1600/depositphotos_380568928-stock-illustration-two-men-talking-cartoon-hand.jpg"
+                     alt="Volunteers working together to protect the environment">
+            </p>
+        </section>
+
+        <section id="services">
+            <h2>Our Programs</h2>
+            <p>
+                We organize tree-planting activities, recycling campaigns,
+                environmental education workshops, and community clean-up
+                programs to help people build a more sustainable future.
+            </p>
+        </section>
+
+        <section id="events" itemscope itemtype="https://schema.org/Event">
+            <h2>Join Our Events</h2>
+            <p itemprop="description">
+                Join our environmental activities and make a positive
+                difference. Our annual Green Earth Festival brings
+                volunteers together to plant trees, learn about recycling,
+                and celebrate the beauty of nature.
+            </p>
+            <p>
+                <strong>Annual Green Earth Festival:</strong><br>
+                Starts:
+                <time itemprop="startDate" datetime="2027-07-20">
+                    July 20, 2027
+                </time>
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        <h2 id="contact">Contact Us</h2>
+        <p>
+            Have questions or want to volunteer?
+            Email us at
+            <a href="mailto:info@greenearth.com">info@greenearth.com</a>.
+        </p>
+        <p>&copy; 2027 Green Earth Environmental Community</p>
+    </footer>
+</body>
+</html>
