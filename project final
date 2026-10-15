@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Adventures Blog – My Top 3 Cities in the World</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Inter & Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#064e3b',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom smooth transitions for tab switching */
+        .page-view {
+            display: none;
+            animation: fadeIn 0.4s ease-in-out forwards;
+        }
+        .page-view.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col selection:bg-brand-500 selection:text-white">
+
+    <!-- Notification Toast / Alert Box (Custom replacement for alert) -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+    <!-- HEADER -->
+    <header class="bg-gradient-to-r from-slate-900 via-emerald-950 to-slate-900 text-white py-8 px-4 shadow-xl border-b border-emerald-900/40">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="text-center md:text-left cursor-pointer" onclick="switchPage('home')">
+                <h1 class="font-serif text-3xl md:text-4xl font-bold tracking-tight bg-gradient-to-r from-emerald-400 via-teal-200 to-white bg-clip-text text-transparent flex items-center justify-center md:justify-start gap-3">
+                    <span>🌍</span> Journeys of Friendship: Global Adventures Blog
+                </h1>
+                <p class="text-slate-300 text-sm md:text-base mt-1 font-light max-w-2xl">
+                    Exploring the world together, one unforgettable city at a time. Join our digital scrapbook of top urban discoveries, culinary delights, and lifelong memories.
+                </p>
+            </div>
+            <div class="flex items-center gap-3">
+                <button onclick="switchPage('subscribe')" class="bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-semibold px-4 py-2 rounded-full shadow-lg transition transform hover:scale-105 flex items-center gap-2 text-sm">
+                    <i class="fa-solid fa-paper-plane"></i> Subscribe
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- NAVIGATION BAR -->
+    <nav class="sticky top-0 z-40 bg-white/95 backdrop-blur-md shadow-md border-b border-slate-200">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                <!-- Brand / Logo Icon -->
+                <div class="flex items-center gap-2 font-bold text-lg text-slate-900 cursor-pointer" onclick="switchPage('home')">
+                    <span class="bg-emerald-600 text-white p-2 rounded-lg shadow"><i class="fa-solid fa-compass"></i></span>
+                    <span class="hidden sm:inline font-serif tracking-wide">GlobalAdventures</span>
+                </div>
+
+                <!-- Desktop Navigation Menu -->
+                <ul class="hidden md:flex items-center space-x-1 lg:space-x-4 font-medium text-slate-600 text-sm">
+                    <li><a href="#" onclick="switchPage('home'); return false;" id="nav-home" class="nav-link px-3 py-2 rounded-lg transition hover:bg-emerald-50 hover:text-emerald-700 active-nav text-emerald-700 font-semibold flex items-center gap-1.5"><i class="fa-solid fa-house"></i> Home</a></li>
+                    
+                    <!-- Cities Dropdown / Links -->
+                    <li class="relative group">
+                        <button class="nav-link px-3 py-2 rounded-lg transition hover:bg-emerald-50 hover:text-emerald-700 flex items-center gap-1.5 focus:outline-none">
+                            <i class="fa-solid fa-city"></i> Cities <i class="fa-solid fa-chevron-down text-xs"></i>
+                        </button>
+                        <div class="absolute left-0 mt-1 w-48 bg-white border border-slate-200 rounded-xl shadow-xl py-2 hidden group-hover:block transition-all duration-200 z-50">
+                            <a href="#" onclick="switchPage('tokyo'); return false;" class="block px-4 py-2 text-sm text-slate-700 hover:bg-emerald-50 hover:text-emerald-700 flex items-center gap-2">🇯🇵 Tokyo, Japan</a>
+                            <a href="#" onclick="switchPage('paris'); return false;" class="block px-4 py-2 text-sm text-slate-700 hover:bg-emerald-50 hover:text-emerald-700 flex items-center gap-2">🇫🇷 Paris, France</a>
+                            <a href="#" onclick="switchPage('kyoto'); return false;" class="block px-4 py-2 text-sm text-slate-700 hover:bg-emerald-50 hover:text-emerald-700 flex items-center gap-2">⛩️ Kyoto, Japan</a>
+                        </div>
+                    </li>
+
+                    <li><a href="#" onclick="switchPage('gallery'); return false;" id="nav-gallery" class="nav-link px-3 py-2 rounded-lg transition hover:bg-emerald-50 hover:text-emerald-700 flex items-center gap-1.5"><i class="fa-solid fa-images"></i> Gallery</a></li>
+                    <li><a href="#" onclick="switchPage('contact'); return false;" id="nav-contact" class="nav-link px-3 py-2 rounded-lg transition hover:bg-emerald-50 hover:text-emerald-700 flex items-center gap-1.5"><i class="fa-solid fa-envelope"></i> Contact</a></li>
+                    <li><a href="#" onclick="switchPage('subscribe'); return false;" id="nav-subscribe" class="nav-link px-3 py-2 rounded-lg transition hover:bg-emerald-50 hover:text-emerald-700 flex items-center gap-1.5"><i class="fa-solid fa-bell"></i> Subscribe</a></li>
+                </ul>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="text-slate-700 hover:text-emerald-600 focus:outline-none p-2 rounded-lg">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Drawer -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-4 space-y-2">
+            <a href="#" onclick="switchPage('home'); closeMobileMenu(); return false;" class="block px-3 py-2 rounded-lg hover:bg-emerald-50 text-slate-700 font-medium"><i class="fa-solid fa-house mr-2"></i> Home</a>
+            <div class="px-3 py-1 text-xs font-semibold text-slate-400 uppercase tracking-wider">Top Cities</div>
+            <a href="#" onclick="switchPage('tokyo'); closeMobileMenu(); return false;" class="block pl-6 pr-3 py-2 rounded-lg hover:bg-emerald-50 text-slate-700">🇯🇵 Tokyo</a>
+            <a href="#" onclick="switchPage('paris'); closeMobileMenu(); return false;" class="block pl-6 pr-3 py-2 rounded-lg hover:bg-emerald-50 text-slate-700">🇫🇷 Paris</a>
+            <a href="#" onclick="switchPage('kyoto'); closeMobileMenu(); return false;" class="block pl-6 pr-3 py-2 rounded-lg hover:bg-emerald-50 text-slate-700">⛩️ Kyoto</a>
+            <a href="#" onclick="switchPage('gallery'); closeMobileMenu(); return false;" class="block px-3 py-2 rounded-lg hover:bg-emerald-50 text-slate-700 font-medium"><i class="fa-solid fa-images mr-2"></i> Gallery</a>
+            <a href="#" onclick="switchPage('contact'); closeMobileMenu(); return false;" class="block px-3 py-2 rounded-lg hover:bg-emerald-50 text-slate-700 font-medium"><i class="fa-solid fa-envelope mr-2"></i> Contact</a>
+            <a href="#" onclick="switchPage('subscribe'); closeMobileMenu(); return false;" class="block px-3 py-2 rounded-lg hover:bg-emerald-50 text-slate-700 font-medium"><i class="fa-solid fa-bell mr-2"></i> Subscribe</a>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="flex-grow max-w-6xl w-full mx-auto px-4 py-8">
+
+        <!-- ================= PAGE 1: HOME ================= -->
+        <div id="page-home" class="page-view active space-y-12">
+            
+            <!-- Slideshow / Hero Feature Section -->
+            <section class="relative rounded-3xl overflow-hidden shadow-2xl bg-slate-900 border border-slate-800">
+                <div id="slideshow-container" class="relative h-[380px] sm:h-[460px] md:h-[520px] w-full">
+                    <!-- Slide 1: Tokyo -->
+                    <div class="slide absolute inset-0 transition-opacity duration-1000 opacity-100 flex items-end">
+                        <img src="https://placehold.co/1200x600/064e3b/ffffff?text=Tokyo:+Neon+Dreams+%26+Tradition" alt="Tokyo Cityscape" class="absolute inset-0 w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
+                        <div class="relative p-6 sm:p-10 max-w-3xl text-white">
+                            <span class="bg-emerald-500 text-slate-950 text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-3 inline-block">Featured City #1</span>
+                            <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl font-bold mb-3">Tokyo, Japan</h2>
+                            <p class="text-slate-200 text-sm sm:text-base mb-4 line-clamp-2 sm:line-clamp-none">Where hyper-modern skyscrapers seamlessly blend with ancient shrines, bustling neon alleys, and culinary masterpieces.</p>
+                            <button onclick="switchPage('tokyo')" class="bg-white hover:bg-emerald-50 text-slate-900 font-semibold px-5 py-2.5 rounded-xl shadow transition text-sm flex items-center gap-2">
+                                Read Tokyo Adventure <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Slide 2: Paris -->
+                    <div class="slide absolute inset-0 transition-opacity duration-1000 opacity-0 flex items-end">
+                        <img src="https://placehold.co/1200x600/1e293b/ffffff?text=Paris:+City+of+Light+%26+Art" alt="Paris Eiffel Tower" class="absolute inset-0 w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
+                        <div class="relative p-6 sm:p-10 max-w-3xl text-white">
+                            <span class="bg-indigo-500 text-white text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-3 inline-block">Featured City #2</span>
+                            <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl font-bold mb-3">Paris, France</h2>
+                            <p class="text-slate-200 text-sm sm:text-base mb-4 line-clamp-2 sm:line-clamp-none">A timeless romance of cobblestone walks along the Seine, world-class museums, and fragrant corner boulangeries.</p>
+                            <button onclick="switchPage('paris')" class="bg-white hover:bg-indigo-50 text-slate-900 font-semibold px-5 py-2.5 rounded-xl shadow transition text-sm flex items-center gap-2">
+                                Read Paris Adventure <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Slide 3: Kyoto -->
+                    <div class="slide absolute inset-0 transition-opacity duration-1000 opacity-0 flex items-end">
+                        <img src="https://placehold.co/1200x600/0f172a/ffffff?text=Kyoto:+Temples+%26+Bamboo+Forests" alt="Kyoto Bamboo Grove" class="absolute inset-0 w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
+                        <div class="relative p-6 sm:p-10 max-w-3xl text-white">
+                            <span class="bg-amber-500 text-slate-950 text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-3 inline-block">Featured City #3</span>
+                            <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl font-bold mb-3">Kyoto, Japan</h2>
+                            <p class="text-slate-200 text-sm sm:text-base mb-4 line-clamp-2 sm:line-clamp-none">The tranquil cultural heartbeat of Japan featuring thousands of classical Buddhist temples and whispering bamboo groves.</p>
+                            <button onclick="switchPage('kyoto')" class="bg-white hover:bg-amber-50 text-slate-900 font-semibold px-5 py-2.5 rounded-xl shadow transition text-sm flex items-center gap-2">
+                                Read Kyoto Adventure <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Slideshow Navigation Controls -->
+                <div class="absolute bottom-4 right-4 z-10 flex items-center gap-2 bg-slate-900/80 backdrop-blur px-3 py-1.5 rounded-full border border-slate-700">
+                    <button onclick="prevSlide()" class="text-white hover:text-emerald-400 p-1"><i class="fa-solid fa-chevron-left"></i></button>
+                    <span id="slide-indicator" class="text-xs text-slate-300 font-mono px-2">1 / 3</span>
+                    <button onclick="nextSlide()" class="text-white hover:text-emerald-400 p-1"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+            </section>
+
+            <!-- Welcome Intro & Mission -->
+            <section class="bg-white rounded-3xl p-8 sm:p-12 shadow-sm border border-slate-100 text-center max-w-4xl mx-auto">
+                <span class="text-3xl mb-3 block">🧭</span>
+                <h2 class="font-serif text-2xl sm:text-3xl font-bold text-slate-900 mb-4">Welcome to Our Digital Scrapbook</h2>
+                <p class="text-slate-600 leading-relaxed mb-6">
+                    We are three friends bound by an insatiable curiosity for the unknown. Over countless flights, delayed trains, and midnight street-food discoveries, we realized that cities aren't just coordinates on a map—they are living souls with stories etched into every brick, café, and temple. Here is our curated collection of the top 3 cities in the world that forever changed how we see humanity.
+                </p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <button onclick="switchPage('gallery')" class="bg-slate-900 hover:bg-slate-800 text-white font-medium px-6 py-3 rounded-xl shadow transition flex items-center gap-2 text-sm">
+                        <i class="fa-solid fa-camera-retro"></i> Explore Photo Gallery
+                    </button>
+                    <button onclick="switchPage('contact')" class="border border-slate-300 hover:bg-slate-50 text-slate-700 font-medium px-6 py-3 rounded-xl transition flex items-center gap-2 text-sm">
+                        <i class="fa-solid fa-comments"></i> Send Us a Note
+                    </button>
+                </div>
+            </section>
+
+            <!-- Top 3 Cities Grid Cards -->
+            <section class="space-y-6">
+                <div class="text-center">
+                    <h3 class="font-serif text-2xl sm:text-3xl font-bold text-slate-900">Our Ultimate Top 3 Cities</h3>
+                    <p class="text-slate-500 text-sm mt-1">Click any city card below to dive deep into our personal journals</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Tokyo Card -->
+                    <div onclick="switchPage('tokyo')" class="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl border border-slate-200 transition-all duration-300 cursor-pointer flex flex-col">
+                        <div class="relative h-56 overflow-hidden">
+                            <img src="https://placehold.co/600x400/064e3b/ffffff?text=Tokyo" alt="Tokyo" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <div class="absolute top-3 left-3 bg-slate-900/80 backdrop-blur text-emerald-400 font-mono text-xs px-3 py-1 rounded-full">🇯🇵 City #1</div>
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow justify-between">
+                            <div>
+                                <h4 class="font-serif text-xl font-bold text-slate-900 mb-2 group-hover:text-emerald-600 transition">Tokyo, Japan</h4>
+                                <p class="text-slate-600 text-sm leading-relaxed">Neon lights, serene shrines, and the finest ramen broths known to humankind.</p>
+                            </div>
+                            <div class="mt-6 flex items-center justify-between text-emerald-600 font-semibold text-sm">
+                                <span>Read Full Journal</span>
+                                <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Paris Card -->
+                    <div onclick="switchPage('paris')" class="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl border border-slate-200 transition-all duration-300 cursor-pointer flex flex-col">
+                        <div class="relative h-56 overflow-hidden">
+                            <img src="https://placehold.co/600x400/1e293b/ffffff?text=Paris" alt="Paris" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <div class="absolute top-3 left-3 bg-slate-900/80 backdrop-blur text-indigo-400 font-mono text-xs px-3 py-1 rounded-full">🇫🇷 City #2</div>
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow justify-between">
+                            <div>
+                                <h4 class="font-serif text-xl font-bold text-slate-900 mb-2 group-hover:text-indigo-600 transition">Paris, France</h4>
+                                <p class="text-slate-600 text-sm leading-relaxed">Artistic alleyways, historic monuments, and fresh buttery croissants at dawn.</p>
+                            </div>
+                            <div class="mt-6 flex items-center justify-between text-indigo-600 font-semibold text-sm">
+                                <span>Read Full Journal</span>
+                                <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Kyoto Card -->
+                    <div onclick="switchPage('kyoto')" class="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl border border-slate-200 transition-all duration-300 cursor-pointer flex flex-col">
+                        <div class="relative h-56 overflow-hidden">
+                            <img src="https://placehold.co/600x400/0f172a/ffffff?text=Kyoto" alt="Kyoto" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <div class="absolute top-3 left-3 bg-slate-900/80 backdrop-blur text-amber-400 font-mono text-xs px-3 py-1 rounded-full">⛩️ City #3</div>
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow justify-between">
+                            <div>
+                                <h4 class="font-serif text-xl font-bold text-slate-900 mb-2 group-hover:text-amber-600 transition">Kyoto, Japan</h4>
+                                <p class="text-slate-600 text-sm leading-relaxed">Zen gardens, bamboo stalks whispering in the wind, and timeless tea ceremonies.</p>
+                            </div>
+                            <div class="mt-6 flex items-center justify-between text-amber-600 font-semibold text-sm">
+                                <span>Read Full Journal</span>
+                                <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+
+        <!-- ================= PAGE 2A: TOKYO ================= -->
+        <div id="page-tokyo" class="page-view space-y-10">
+            <!-- Header & Intro -->
+            <header class="bg-gradient-to-r from-emerald-900 to-slate-900 text-white rounded-3xl p-8 sm:p-12 shadow-lg relative overflow-hidden">
+                <div class="absolute right-0 bottom-0 opacity-10 text-9xl font-bold pr-6 select-none pointer-events-none">🇯🇵</div>
+                <div class="max-w-3xl relative z-10">
+                    <div class="flex items-center gap-2 mb-3">
+                        <button onclick="switchPage('home')" class="text-emerald-300 hover:text-white text-sm font-medium flex items-center gap-1"><i class="fa-solid fa-arrow-left"></i> Back to Home</button>
+                        <span class="text-slate-500">•</span>
+                        <span class="text-emerald-400 text-xs font-mono uppercase tracking-wider">City #1 Journey</span>
+                    </div>
+                    <h1 class="font-serif text-3xl sm:text-5xl font-bold mb-4">Tokyo: Where Neon Dreams Meet Ancient Soul</h1>
+                    <p class="text-slate-200 text-base sm:text-lg leading-relaxed">
+                        Stepping out of Shinjuku station for the first time felt like dropping into a sci-fi movie directed by Studio Ghibli. The pulsating lights, the orderly chaos of millions moving in harmony, and the comforting scent of steaming tonkotsu broth captured my heart instantly.
+                    </p>
+                </div>
+            </header>
+
+            <!-- Structured Content Sections -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Main Article Column -->
+                <div class="lg:col-span-2 space-y-8">
+                    
+                    <!-- Landmarks -->
+                    <section class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-100 space-y-4">
+                        <h2 class="font-serif text-2xl font-bold text-slate-900 flex items-center gap-2">
+                            <span>⛩️</span> Iconic Landmarks & Neighborhoods
+                        </h2>
+                        <p class="text-slate-600 leading-relaxed">
+                            From the historic serenity of Sensō-ji in Asakusa to the panoramic Tokyo Skytree overlooking the infinite metropolis, Tokyo offers architectural whiplash at every corner. Walking across the legendary Shibuya Crossing during rush hour is an exhilarating rite of passage for any global traveler.
+                        </p>
+                        <figure class="rounded-2xl overflow-hidden shadow border border-slate-100">
+                            <img src="https://placehold.co/800x450/064e3b/ffffff?text=Shibuya+Crossing+At+Dusk" alt="Tokyo Landmark" class="w-full h-auto object-cover">
+                            <figcaption class="p-3 bg-slate-50 text-xs text-slate-500 italic text-center">
+                                Fig 1.1: Standing in the middle of Shibuya Crossing as the traffic lights turn red simultaneously.
+                            </figcaption>
+                        </figure>
+                    </section>
+
+                    <!-- Culinary Delights -->
+                    <section class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-100 space-y-4">
+                        <h2 class="font-serif text-2xl font-bold text-slate-900 flex items-center gap-2">
+                            <span>🍜</span> Culinary Delights: Ramen & Izakayas
+                        </h2>
+                        <p class="text-slate-600 leading-relaxed">
+                            Tokyo’s food scene is legendary. We spent rainy evenings tucked into tiny six-seat ramen shops in Omoide Yokocho ("Memory Lane"), savoring charcoal-grilled yakitori and rich, simmered pork broth that took chefs twenty-four hours to perfect.
+                        </p>
+                        <!-- Video Embed simulation using iframe or responsive video container -->
+                        <div class="rounded-2xl overflow-hidden shadow border border-slate-100 bg-slate-900 aspect-video relative flex items-center justify-center">
+                            <div class="text-center p-6 text-white">
+                                <span class="text-4xl block mb-2">🎥</span>
+                                <p class="text-sm font-semibold">Virtual Tour: Midnight Ramen Walk in Shinjuku</p>
+                                <p class="text-xs text-slate-400 mt-1">Click to stream virtual tour footage (Simulated Video Player)</p>
+                                <button onclick="showToast('Streaming Tokyo Virtual Tour video... Enjoy the sights!')" class="mt-4 bg-emerald-500 text-slate-950 font-semibold px-4 py-2 rounded-xl text-xs shadow hover:bg-emerald-400 transition">Play Video</button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Cultural Experiences & Personal Reflections -->
+                    <section class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-100 space-y-4">
+                        <h2 class="font-serif text-2xl font-bold text-slate-900 flex items-center gap-2">
+                            <span>🌸</span> Cultural Richness & Personal Reflection
+                        </h2>
+                        <p class="text-slate-600 leading-relaxed">
+                            What stayed with us long after our flight home wasn't just the neon or the food—it was the profound kindness of strangers. When we got completely lost looking for a temple in Ukiyoe, an elderly gentleman didn't just point the way; he walked us three blocks out of his umbrella-sharing route to make sure we found the entrance. Tokyo taught us that deep respect and community can thrive even in a city of thirty-eight million people.
+                        </p>
+                    </section>
+
+                </div>
+
+                <!-- Sidebar Info -->
+                <aside class="space-y-6">
+                    <div class="bg-emerald-900 text-white rounded-3xl p-6 shadow-md space-y-4">
+                        <h3 class="font-serif text-xl font-bold border-b border-emerald-800 pb-3">Tokyo Quick Facts</h3>
+                        <ul class="space-y-3 text-sm text-emerald-100">
+                            <li class="flex items-center justify-between"><span>Country:</span> <strong class="text-white">Japan</strong></li>
+                            <li class="flex items-center justify-between"><span>Population:</span> <strong class="text-white">~14 Million (Metro 38M)</strong></li>
+                            <li class="flex items-center justify-between"><span>Best Season:</span> <strong class="text-white">Spring (Sakura) & Autumn</strong></li>
+                            <li class="flex items-center justify-between"><span>Must-Try Dish:</span> <strong class="text-white">Tonkotsu Ramen</strong></li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 space-y-4">
+                        <h3 class="font-serif text-xl font-bold text-slate-900">Explore Other Cities</h3>
+                        <div class="space-y-2">
+                            <button onclick="switchPage('paris')" class="w-full text-left px-4 py-3 rounded-xl hover:bg-slate-50 transition flex items-center justify-between text-slate-700 font-medium text-sm">
+                                <span>🇫🇷 Paris, France</span> <i class="fa-solid fa-chevron-right text-xs text-slate-400"></i>
+                            </button>
+                            <button onclick="switchPage('kyoto')" class="w-full text-left px-4 py-3 rounded-xl hover:bg-slate-50 transition flex items-center justify-between text-slate-700 font-medium text-sm">
+                                <span>⛩️ Kyoto, Japan</span> <i class="fa-solid fa-chevron-right text-xs text-slate-400"></i>
+                            </button>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+
+
+        <!-- ================= PAGE 2B: PARIS ================= -->
+        <div id="page-paris" class="page-view space-y-10">
+            <!-- Header & Intro -->
+            <header class="bg-gradient-to-r from-indigo-950 via-slate-900 to-indigo-950 text-white rounded-3xl p-8 sm:p-12 shadow-lg relative overflow-hidden">
+                <div class="absolute right-0 bottom-0 opacity-10 text-9xl font-bold pr-6 select-none pointer-events-none">🇫🇷</div>
+                <div class="max-w-3xl relative z-10">
+                    <div class="flex items-center gap-2 mb-3">
+                        <button onclick="switchPage('home')" class="text-indigo-300 hover:text-white text-sm font-medium flex items-center gap-1"><i class="fa-solid fa-arrow-left"></i> Back to Home</button>
+                        <span class="text-slate-500">•</span>
+                        <span class="text-indigo-400 text-xs font-mono uppercase tracking-wider">City #2 Journey</span>
+                    </div>
+                    <h1 class="font-serif text-3xl sm:text-5xl font-bold mb-4">Paris: Art, Romance & The River Seine</h1>
+                    <p class="text-slate-200 text-base sm:text-lg leading-relaxed">
+                        Paris feels like an open-air museum where every Haussmannian balcony tells a century-old story. Wandering along the banks of the Seine at twilight, with the Eiffel Tower glittering in the distance, remains our favorite travel memory in Europe.
+                    </p>
+                </div>
+            </header>
+
+            <!-- Structured Content Sections -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Main Article Column -->
+                <div class="lg:col-span-2 space-y-8">
+                    
+                    <!-- Landmarks -->
+                    <section class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-100 space-y-4">
+                        <h2 class="font-serif text-2xl font-bold text-slate-900 flex items-center gap-2">
+                            <span>🏛️</span> Monuments & Artistic Havens
+                        </h2>
+                        <p class="text-slate-600 leading-relaxed">
+                            Beyond the Louvre and the Musée d'Orsay, the true magic of Paris lies in getting lost in Le Marais or Montmartre. We spent an entire afternoon sketching portrait artists at Place du Tertre before watching the sunset from the steps of Sacré-Cœur.
+                        </p>
+                        <figure class="rounded-2xl overflow-hidden shadow border border-slate-100">
+                            <img src="https://placehold.co/800x450/1e293b/ffffff?text=Parisian+Cafes+Along+The+Seine" alt="Paris Landmark" class="w-full h-auto object-cover">
+                            <figcaption class="p-3 bg-slate-50 text-xs text-slate-500 italic text-center">
+                                Fig 2.1: Morning coffee at a classic Parisian corner bistro overlooking historic limestone facades.
+                            </figcaption>
+                        </figure>
+                    </section>
+
+                    <!-- Culinary Delights -->
+                    <section class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-100 space-y-4">
+                        <h2 class="font-serif text-2xl font-bold text-slate-900 flex items-center gap-2">
+                            <span>🥐</span> Bakeries, Wine & Bistro Culture
+                        </h2>
+                        <p class="text-slate-600 leading-relaxed">
+                            Nothing prepares you for your first warm pain au chocolat purchased straight from the oven at 7 AM. Pairing fresh baguettes and artisanal cheeses with a bottle of Bordeaux by the Seine while street accordion music played in the background was pure cinematic bliss.
+                        </p>
+                        <div class="rounded-2xl overflow-hidden shadow border border-slate-100 bg-slate-900 aspect-video relative flex items-center justify-center">
+                            <div class="text-center p-6 text-white">
+                                <span class="text-4xl block mb-2">🎥</span>
+                                <p class="text-sm font-semibold">Virtual Tour: Sunset Along the River Seine</p>
+                                <p class="text-xs text-slate-400 mt-1">Click to stream virtual tour footage (Simulated Video Player)</p>
+                                <button onclick="showToast('Streaming Paris Virtual Tour video... Bon voyage!')" class="mt-4 bg-indigo-500 text-white font-semibold px-4 py-2 rounded-xl text-xs shadow hover:bg-indigo-400 transition">Play Video</button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Personal Reflections -->
+                    <section class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-100 space-y-4">
+                        <h2 class="font-serif text-2xl font-bold text-slate-900 flex items-center gap-2">
+                            <span>🎨</span> Cultural Richness & Personal Reflection
+                        </h2>
+                        <p class="text-slate-600 leading-relaxed">
+                            Paris taught us how to slow down. In a world rushing toward digital noise, Parisians take their time over espresso, debating literature and art for hours. It reminded us to savor every moment rather than just checking off sightseeing lists.
+                        </p>
+                    </section>
+
+                </div>
+
+                <!-- Sidebar Info -->
+                <aside class="space-y-6">
+                    <div class="bg-indigo-950 text-white rounded-3xl p-6 shadow-md space-y-4">
+                        <h3 class="font-serif text-xl font-bold border-b border-indigo-900 pb-3">Paris Quick Facts</h3>
+                        <ul class="space-y-3 text-sm text-indigo-100">
+                            <li class="flex items-center justify-between"><span>Country:</span> <strong class="text-white">France</strong></li>
+                            <li class="flex items-center justify-between"><span>Population:</span> <strong class="text-white">~2.1 Million</strong></li>
+                            <li class="flex items-center justify-between"><span>Best Season:</span> <strong class="text-white">Spring & Early Summer</strong></li>
+                            <li class="flex items-center justify-between"><span>Must-Try Dish:</span> <strong class="text-white">Fresh Croissant & Coq au Vin</strong></li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 space-y-4">
+                        <h3 class="font-serif text-xl font-bold text-slate-900">Explore Other Cities</h3>
+                        <div class="space-y-2">
+                            <button onclick="switchPage('tokyo')" class="w-full text-left px-4 py-3 rounded-xl hover:bg-slate-50 transition flex items-center justify-between text-slate-700 font-medium text-sm">
+                                <span>🇯🇵 Tokyo, Japan</span> <i class="fa-solid fa-chevron-right text-xs text-slate-400"></i>
+                            </button>
+                            <button onclick="switchPage('kyoto')" class="w-full text-left px-4 py-3 rounded-xl hover:bg-slate-50 transition flex items-center justify-between text-slate-700 font-medium text-sm">
+                                <span>⛩️ Kyoto, Japan</span> <i class="fa-solid fa-chevron-right text-xs text-slate-400"></i>
+                            </button>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+
+
+        <!-- ================= PAGE 2C: KYOTO ================= -->
+        <div id="page-kyoto" class="page-view space-y-10">
+            <!-- Header & Intro -->
+            <header class="bg-gradient-to-r from-amber-950 via-slate-900 to-amber-950 text-white rounded-3xl p-8 sm:p-12 shadow-lg relative overflow-hidden">
+                <div class="absolute right-0 bottom-0 opacity-10 text-9xl font-bold pr-6 select-none pointer-events-none">⛩️</div>
+                <div class="max-w-3xl relative z-10">
+                    <div class="flex items-center gap-2 mb-3">
+                        <button onclick="switchPage('home')" class="text-amber-300 hover:text-white text-sm font-medium flex items-center gap-1"><i class="fa-solid fa-arrow-left"></i> Back to Home</button>
+                        <span class="text-slate-500">•</span>
+                        <span class="text-amber-400 text-xs font-mono uppercase tracking-wider">City #3 Journey</span>
+                    </div>
+                    <h1 class="font-serif text-3xl sm:text-5xl font-bold mb-4">Kyoto: Zen Gardens & Whispering Bamboo</h1>
+                    <p class="text-slate-200 text-base sm:text-lg leading-relaxed">
+                        If Tokyo is the energetic future, Kyoto is the tranquil soul of Japan. Walking through the towering emerald bamboo stalks of Arashiyama at dawn, hearing the distant chime of temple bells, offered an unforgettable moment of absolute peace.
+                    </p>
+                </div>
+            </header>
+
+            <!-- Structured Content Sections -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Main Article Column -->
+                <div class="lg:col-span-2 space-y-8">
+                    
+                    <!-- Landmarks -->
+                    <section class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-100 space-y-4">
+                        <h2 class="font-serif text-2xl font-bold text-slate-900 flex items-center gap-2">
+                            <span>🌿</span> Temples & Bamboo Groves
+                        </h2>
+                        <p class="text-slate-600 leading-relaxed">
+                            Kyoto boasts over two thousand temples and shrines. Fushimi Inari-taisha, with its endless vermilion torii gates winding up the sacred mountain, felt like a mystical portal into another realm. Every turn revealed hidden moss gardens and stone lanterns.
+                        </p>
+                        <figure class="rounded-2xl overflow-hidden shadow border border-slate-100">
+                            <img src="https://placehold.co/800x450/0f172a/ffffff?text=Arashiyama+Bamboo+Grove" alt="Kyoto Landmark" class="w-full h-auto object-cover">
+                            <figcaption class="p-3 bg-slate-50 text-xs text-slate-500 italic text-center">
+                                Fig 3.1: Sunlight filtering through the soaring green stalks of the Arashiyama bamboo forest.
+                            </figcaption>
+                        </figure>
+                    </section>
+
+                    <!-- Culinary Delights -->
+                    <section class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-100 space-y-4">
+                        <h2 class="font-serif text-2xl font-bold text-slate-900 flex items-center gap-2">
+                            <span>🍵</span> Matcha & Traditional Kaiseki
+                        </h2>
+                        <p class="text-slate-600 leading-relaxed">
+                            In Kyoto, culinary arts are tied deeply to mindfulness. We participated in a traditional tea ceremony, whisking frothy ceremonial matcha in handmade ceramic bowls, paired with delicate sweet wagashi confections crafted to mimic seasonal cherry blossoms.
+                        </p>
+                        <div class="rounded-2xl overflow-hidden shadow border border-slate-100 bg-slate-900 aspect-video relative flex items-center justify-center">
+                            <div class="text-center p-6 text-white">
+                                <span class="text-4xl block mb-2">🎥</span>
+                                <p class="text-sm font-semibold">Virtual Tour: Zen Gardens & Tea Ceremonies</p>
+                                <p class="text-xs text-slate-400 mt-1">Click to stream virtual tour footage (Simulated Video Player)</p>
+                                <button onclick="showToast('Streaming Kyoto Virtual Tour video... Find your inner peace!')" class="mt-4 bg-amber-500 text-slate-950 font-semibold px-4 py-2 rounded-xl text-xs shadow hover:bg-amber-400 transition">Play Video</button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Personal Reflections -->
+                    <section class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-100 space-y-4">
+                        <h2 class="font-serif text-2xl font-bold text-slate-900 flex items-center gap-2">
+                            <span>🧘</span> Cultural Richness & Personal Reflection
+                        </h2>
+                        <p class="text-slate-600 leading-relaxed">
+                            Kyoto taught us the Japanese concept of *Wabi-Sabi*—finding beauty in imperfection and impermanence. Sitting quietly on the wooden veranda of a Zen temple during an afternoon rain shower washed away all our travel exhaustion.
+                        </p>
+                    </section>
+
+                </div>
+
+                <!-- Sidebar Info -->
+                <aside class="space-y-6">
+                    <div class="bg-amber-950 text-white rounded-3xl p-6 shadow-md space-y-4">
+                        <h3 class="font-serif text-xl font-bold border-b border-amber-900 pb-3">Kyoto Quick Facts</h3>
+                        <ul class="space-y-3 text-sm text-amber-100">
+                            <li class="flex items-center justify-between"><span>Country:</span> <strong class="text-white">Japan</strong></li>
+                            <li class="flex items-center justify-between"><span>Population:</span> <strong class="text-white">~1.4 Million</strong></li>
+                            <li class="flex items-center justify-between"><span>Best Season:</span> <strong class="text-white">Autumn Foliage (Koyo)</strong></li>
+                            <li class="flex items-center justify-between"><span>Must-Try Dish:</span> <strong class="text-white">Matcha Sweets & Kaiseki</strong></li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 space-y-4">
+                        <h3 class="font-serif text-xl font-bold text-slate-900">Explore Other Cities</h3>
+                        <div class="space-y-2">
+                            <button onclick="switchPage('tokyo')" class="w-full text-left px-4 py-3 rounded-xl hover:bg-slate-50 transition flex items-center justify-between text-slate-700 font-medium text-sm">
+                                <span>🇯🇵 Tokyo, Japan</span> <i class="fa-solid fa-chevron-right text-xs text-slate-400"></i>
+                            </button>
+                            <button onclick="switchPage('paris')" class="w-full text-left px-4 py-3 rounded-xl hover:bg-slate-50 transition flex items-center justify-between text-slate-700 font-medium text-sm">
+                                <span>🇫🇷 Paris, France</span> <i class="fa-solid fa-chevron-right text-xs text-slate-400"></i>
+                            </button>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+
+
+        <!-- ================= PAGE 3: GALLERY ================= -->
+        <div id="page-gallery" class="page-view space-y-8">
+            <div class="text-center max-w-2xl mx-auto space-y-3">
+                <span class="text-3xl">📸</span>
+                <h1 class="font-serif text-3xl sm:text-4xl font-bold text-slate-900">Travel Photo Gallery</h1>
+                <p class="text-slate-600 text-sm sm:text-base">
+                    A visual journey through our global adventures. Each photograph holds an anecdote, a fleeting emotion, or an unforgettable friendship milestone.
+                </p>
+            </div>
+
+            <!-- Photo Gallery Semantic List Structure -->
+            <section class="photo-gallery">
+                <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    
+                    <!-- Gallery Item 1 -->
+                    <li class="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-200 flex flex-col group hover:shadow-xl transition duration-300">
+                        <figure class="m-0 flex flex-col flex-grow">
+                            <div class="overflow-hidden relative h-64">
+                                <img src="https://placehold.co/600x450/064e3b/ffffff?text=Tokyo+Neon+Nights" alt="Tokyo Neon Nights" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                                <span class="absolute top-3 right-3 bg-slate-900/80 text-emerald-400 text-xs px-2.5 py-1 rounded-full font-mono">Tokyo</span>
+                            </div>
+                            <figcaption class="p-5 flex flex-col flex-grow justify-between bg-white">
+                                <p class="text-slate-700 text-sm leading-relaxed mb-4">
+                                    "Getting lost in Shinjuku's neon alleyways at midnight while tasting piping hot takoyaki right off the grill."
+                                </p>
+                                <span class="text-xs text-slate-400 font-mono"><i class="fa-regular fa-calendar mr-1"></i> Shinjuku District, Tokyo</span>
+                            </figcaption>
+                        </figure>
+                    </li>
+
+                    <!-- Gallery Item 2 -->
+                    <li class="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-200 flex flex-col group hover:shadow-xl transition duration-300">
+                        <figure class="m-0 flex flex-col flex-grow">
+                            <div class="overflow-hidden relative h-64">
+                                <img src="https://placehold.co/600x450/1e293b/ffffff?text=Parisian+Bistro+Morning" alt="Parisian Bistro Morning" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                                <span class="absolute top-3 right-3 bg-slate-900/80 text-indigo-400 text-xs px-2.5 py-1 rounded-full font-mono">Paris</span>
+                            </div>
+                            <figcaption class="p-5 flex flex-col flex-grow justify-between bg-white">
+                                <p class="text-slate-700 text-sm leading-relaxed mb-4">
+                                    "Morning coffee and crisp butter croissants outside a corner bistro in Le Marais as the city slowly wakes up."
+                                </p>
+                                <span class="text-xs text-slate-400 font-mono"><i class="fa-regular fa-calendar mr-1"></i> Le Marais, Paris</span>
+                            </figcaption>
+                        </figure>
+                    </li>
+
+                    <!-- Gallery Item 3 -->
+                    <li class="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-200 flex flex-col group hover:shadow-xl transition duration-300">
+                        <figure class="m-0 flex flex-col flex-grow">
+                            <div class="overflow-hidden relative h-64">
+                                <img src="https://placehold.co/600x450/0f172a/ffffff?text=Kyoto+Bamboo+Serenity" alt="Kyoto Bamboo Serenity" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                                <span class="absolute top-3 right-3 bg-slate-900/80 text-amber-400 text-xs px-2.5 py-1 rounded-full font-mono">Kyoto</span>
+                            </div>
+                            <figcaption class="p-5 flex flex-col flex-grow justify-between bg-white">
+                                <p class="text-slate-700 text-sm leading-relaxed mb-4">
+                                    "Standing in absolute silence as morning sunlight filters through the towering green stalks of Arashiyama."
+                                </p>
+                                <span class="text-xs text-slate-400 font-mono"><i class="fa-regular fa-calendar mr-1"></i> Arashiyama, Kyoto</span>
+                            </figcaption>
+                        </figure>
+                    </li>
+
+                    <!-- Gallery Item 4 -->
+                    <li class="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-200 flex flex-col group hover:shadow-xl transition duration-300">
+                        <figure class="m-0 flex flex-col flex-grow">
+                            <div class="overflow-hidden relative h-64">
+                                <img src="https://placehold.co/600x450/064e3b/ffffff?text=Shibuya+Crossing" alt="Shibuya Crossing" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                                <span class="absolute top-3 right-3 bg-slate-900/80 text-emerald-400 text-xs px-2.5 py-1 rounded-full font-mono">Tokyo</span>
+                            </div>
+                            <figcaption class="p-5 flex flex-col flex-grow justify-between bg-white">
+                                <p class="text-slate-700 text-sm leading-relaxed mb-4">
+                                    "The synchronized ballet of pedestrians crossing the world's busiest intersection during rush hour."
+                                </p>
+                                <span class="text-xs text-slate-400 font-mono"><i class="fa-regular fa-calendar mr-1"></i> Shibuya, Tokyo</span>
+                            </figcaption>
+                        </figure>
+                    </li>
+
+                    <!-- Gallery Item 5 -->
+                    <li class="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-200 flex flex-col group hover:shadow-xl transition duration-300">
+                        <figure class="m-0 flex flex-col flex-grow">
+                            <div class="overflow-hidden relative h-64">
+                                <img src="https://placehold.co/600x450/1e293b/ffffff?text=Eiffel+Tower+Twilight" alt="Eiffel Tower Twilight" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                                <span class="absolute top-3 right-3 bg-slate-900/80 text-indigo-400 text-xs px-2.5 py-1 rounded-full font-mono">Paris</span>
+                            </div>
+                            <figcaption class="p-5 flex flex-col flex-grow justify-between bg-white">
+                                <p class="text-slate-700 text-sm leading-relaxed mb-4">
+                                    "Watching the Eiffel Tower sparkle with thousands of golden lights as night falls over the Seine."
+                                </p>
+                                <span class="text-xs text-slate-400 font-mono"><i class="fa-regular fa-calendar mr-1"></i> Champ de Mars, Paris</span>
+                            </figcaption>
+                        </figure>
+                    </li>
+
+                    <!-- Gallery Item 6 -->
+                    <li class="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-200 flex flex-col group hover:shadow-xl transition duration-300">
+                        <figure class="m-0 flex flex-col flex-grow">
+                            <div class="overflow-hidden relative h-64">
+                                <img src="https://placehold.co/600x450/0f172a/ffffff?text=Fushimi+Inari+Gates" alt="Fushimi Inari Gates" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                                <span class="absolute top-3 right-3 bg-slate-900/80 text-amber-400 text-xs px-2.5 py-1 rounded-full font-mono">Kyoto</span>
+                            </div>
+                            <figcaption class="p-5 flex flex-col flex-grow justify-between bg-white">
+                                <p class="text-slate-700 text-sm leading-relaxed mb-4">
+                                    "Hiking through thousands of vibrant vermilion torii gates winding up the sacred mountain slopes."
+                                </p>
+                                <span class="text-xs text-slate-400 font-mono"><i class="fa-regular fa-calendar mr-1"></i> Fushimi Inari, Kyoto</span>
+                            </figcaption>
+                        </figure>
+                    </li>
+
+                </ul>
+            </section>
+        </div>
+
+
+        <!-- ================= PAGE 4: CONTACT ================= -->
+        <div id="page-contact" class="page-view max-w-2xl mx-auto space-y-8">
+            <div class="text-center space-y-3">
+                <span class="text-3xl">📬</span>
+                <h1 class="font-serif text-3xl sm:text-4xl font-bold text-slate-900">Connect With Our Travelers</h1>
+                <p class="text-slate-600 text-sm sm:text-base">
+                    Have questions about our itineraries, want collaboration tips, or simply want to share your own favorite travel city? Drop us a message!
+                </p>
+            </div>
+
+            <!-- Contact Form Card -->
+            <div class="bg-white rounded-3xl p-8 shadow-sm border border-slate-200">
+                <form id="contact-form" onsubmit="handleContactSubmit(event)" method="post" class="space-y-6">
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <!-- Name Field -->
+                        <div class="space-y-2">
+                            <label for="contact-name" class="block text-sm font-semibold text-slate-700">Your Full Name <span class="text-red-500">*</span></label>
+                            <input type="text" id="contact-name" name="name" required placeholder="e.g. Alex Traveler" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition text-sm">
+                        </div>
+
+                        <!-- Email Field -->
+                        <div class="space-y-2">
+                            <label for="contact-email" class="block text-sm font-semibold text-slate-700">Email Address <span class="text-red-500">*</span></label>
+                            <input type="email" id="contact-email" name="email" required placeholder="alex@example.com" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition text-sm">
+                        </div>
+                    </div>
+
+                    <!-- Subject Field -->
+                    <div class="space-y-2">
+                        <label for="contact-subject" class="block text-sm font-semibold text-slate-700">Subject <span class="text-red-500">*</span></label>
+                        <input type="text" id="contact-subject" name="subject" required placeholder="e.g. Travel tips for Tokyo or Collaboration" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition text-sm">
+                    </div>
+
+                    <!-- Message Textarea -->
+                    <div class="space-y-2">
+                        <label for="contact-message" class="block text-sm font-semibold text-slate-700">Your Message <span class="text-red-500">*</span></label>
+                        <textarea id="contact-message" name="message" rows="5" required placeholder="Share your stories, questions, or feedback in detail here..." class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition text-sm"></textarea>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3.5 px-6 rounded-xl shadow-lg transition duration-200 flex items-center justify-center gap-2 text-sm">
+                        <i class="fa-solid fa-paper-plane"></i> Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
+
+
+        <!-- ================= PAGE 5: SUBSCRIBE ================= -->
+        <div id="page-subscribe" class="page-view max-w-xl mx-auto space-y-8">
+            <div class="text-center space-y-3">
+                <span class="text-3xl">💌</span>
+                <h1 class="font-serif text-3xl sm:text-4xl font-bold text-slate-900">Never Miss an Adventure</h1>
+                <p class="text-slate-600 text-sm sm:text-base">
+                    Join our community of global wanderers! Receive our weekly dispatch featuring fresh city journals, photography tips, and hidden culinary gems straight to your inbox.
+                </p>
+            </div>
+
+            <!-- Subscription Form Card -->
+            <div class="bg-white rounded-3xl p-8 shadow-sm border border-slate-200">
+                <form id="subscribe-form" onsubmit="handleSubscribeSubmit(event)" method="post" class="space-y-6">
+                    
+                    <!-- Email Input -->
+                    <div class="space-y-2">
+                        <label for="sub-email" class="block text-sm font-semibold text-slate-700">Email Address <span class="text-red-500">*</span></label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-slate-400"><i class="fa-regular fa-envelope"></i></span>
+                            <input type="email" id="sub-email" name="email" required placeholder="Enter your email address..." class="w-full pl-11 pr-4 py-3.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition text-sm">
+                        </div>
+                    </div>
+
+                    <!-- Consent Checkbox -->
+                    <div class="flex items-start gap-3 pt-1">
+                        <input type="checkbox" id="sub-consent" required class="mt-1 h-4 w-4 text-emerald-600 focus:ring-emerald-500 border-slate-300 rounded cursor-pointer">
+                        <label for="sub-consent" class="text-xs text-slate-600 cursor-pointer">
+                            I agree to receive weekly newsletters and travel updates from Global Adventures Blog. You can unsubscribe at any time.
+                        </label>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3.5 px-6 rounded-xl shadow-lg transition duration-200 flex items-center justify-center gap-2 text-sm">
+                        <i class="fa-solid fa-sparkles"></i> Join Us & Subscribe
+                    </button>
+                </form>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-950 text-slate-400 pt-16 pb-12 mt-20 border-t border-slate-800">
+        <div class="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-10">
+            
+            <!-- Column 1: About & Logo -->
+            <div class="space-y-4 md:col-span-1">
+                <div class="flex items-center gap-2 font-serif text-lg font-bold text-white">
+                    <span class="bg-emerald-600 text-slate-950 p-1.5 rounded-lg"><i class="fa-solid fa-compass"></i></span>
+                    <span>GlobalAdventures</span>
+                </div>
+                <p class="text-xs text-slate-400 leading-relaxed">
+                    A digital scrapbook and curated travel guide celebrating friendship, culture, and the top 3 cities in our hearts.
+                </p>
+                <div class="text-xs text-slate-500">
+                    © 2035 Global Adventures Blog. All rights reserved.
+                </div>
+            </div>
+
+            <!-- Column 2: Essential Links -->
+            <div class="space-y-3">
+                <h4 class="text-white text-sm font-semibold uppercase tracking-wider">Quick Navigation</h4>
+                <ul class="space-y-2 text-xs">
+                    <li><a href="#" onclick="switchPage('home'); return false;" class="hover:text-white transition">Home Page</a></li>
+                    <li><a href="#" onclick="switchPage('tokyo'); return false;" class="hover:text-white transition">Tokyo, Japan</a></li>
+                    <li><a href="#" onclick="switchPage('paris'); return false;" class="hover:text-white transition">Paris, France</a></li>
+                    <li><a href="#" onclick="switchPage('kyoto'); return false;" class="hover:text-white transition">Kyoto, Japan</a></li>
+                    <li><a href="#" onclick="switchPage('gallery'); return false;" class="hover:text-white transition">Photo Gallery</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 3: Legal & Policies (Placeholders) -->
+            <div class="space-y-3">
+                <h4 class="text-white text-sm font-semibold uppercase tracking-wider">Policies & Legal</h4>
+                <ul class="space-y-2 text-xs">
+                    <li><a href="#" onclick="showToast('Displaying About Us information...'); return false;" class="hover:text-white transition">About Us</a></li>
+                    <li><a href="#" onclick="showToast('Displaying Privacy Policy statement...'); return false;" class="hover:text-white transition">Privacy Policy</a></li>
+                    <li><a href="#" onclick="showToast('Displaying Terms of Use agreement...'); return false;" class="hover:text-white transition">Terms of Use</a></li>
+                    <li><a href="#" onclick="switchPage('contact'); return false;" class="hover:text-white transition">Collaboration Inquiries</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 4: Social Media & Contact Info -->
+            <div class="space-y-4">
+                <h4 class="text-white text-sm font-semibold uppercase tracking-wider">Connect With Us</h4>
+                <div class="flex items-center gap-3">
+                    <a href="#" onclick="showToast('Redirecting to Faceblock profile...'); return false;" aria-label="Faceblock" class="w-10 h-10 rounded-xl bg-slate-900 hover:bg-emerald-600 hover:text-slate-950 flex items-center justify-center text-white transition">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+                    <a href="#" onclick="showToast('Redirecting to Tweety profile...'); return false;" aria-label="Tweety" class="w-10 h-10 rounded-xl bg-slate-900 hover:bg-emerald-600 hover:text-slate-950 flex items-center justify-center text-white transition">
+                        <i class="fa-brands fa-twitter"></i>
+                    </a>
+                    <a href="#" onclick="showToast('Redirecting to Instadrama profile...'); return false;" aria-label="Instadrama" class="w-10 h-10 rounded-xl bg-slate-900 hover:bg-emerald-600 hover:text-slate-950 flex items-center justify-center text-white transition">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="#" onclick="showToast('Redirecting to Pinterest profile...'); return false;" aria-label="Pinterest" class="w-10 h-10 rounded-xl bg-slate-900 hover:bg-emerald-600 hover:text-slate-950 flex items-center justify-center text-white transition">
+                        <i class="fa-brands fa-pinterest-p"></i>
+                    </a>
+                </div>
+                <div class="text-xs space-y-1 text-slate-400">
+                    <p><i class="fa-solid fa-envelope mr-1 text-emerald-400"></i> hello@globaladventuresblog.com</p>
+                    <p><i class="fa-solid fa-location-dot mr-1 text-emerald-400"></i> Tokyo • Paris • Kyoto</p>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- CLIENT-SIDE SCRIPT: Navigation & Slideshow Logic -->
+    <script>
+        // Page Switching Function with automatic scroll to top
+        function switchPage(pageId) {
+            // Hide all views
+            const views = document.querySelectorAll('.page-view');
+            views.forEach(v => v.classList.remove('active'));
+
+            // Show target view
+            const target = document.getElementById('page-' + pageId);
+            if (target) {
+                target.classList.add('active');
+            }
+
+            // Update active nav styling
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(l => l.classList.remove('text-emerald-700', 'font-semibold', 'bg-emerald-50'));
+            
+            const activeNav = document.getElementById('nav-' + pageId);
+            if (activeNav) {
+                activeNav.classList.add('text-emerald-700', 'font-semibold', 'bg-emerald-50');
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        function closeMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.add('hidden');
+        }
+
+        // Slideshow Controller
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+
+        function updateSlideshow() {
+            slides.forEach((slide, index) => {
+                if (index === currentSlide) {
+                    slide.style.opacity = '1';
+                } else {
+                    slide.style.opacity = '0';
+                }
+            });
+            const indicator = document.getElementById('slide-indicator');
+            if (indicator) {
+                indicator.textContent = (currentSlide + 1) + ' / ' + slides.length;
+            }
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            updateSlideshow();
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+            updateSlideshow();
+        }
+
+        // Auto advance slideshow every 6 seconds
+        setInterval(() => {
+            nextSlide();
+        }, 6000);
+
+        // Custom Notification Toast (replaces alert)
+        function showToast(message) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'bg-slate-900 text-white px-5 py-3 rounded-2xl shadow-2xl border border-emerald-500/40 text-sm flex items-center gap-3 pointer-events-auto transform translate-y-4 opacity-0 transition-all duration-300';
+            toast.innerHTML = `<span class="text-emerald-400 text-lg">✨</span> <span>${message}</span>`;
+            
+            container.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.classList.remove('translate-y-4', 'opacity-0');
+            }, 10);
+
+            setTimeout(() => {
+                toast.classList.add('translate-y-4', 'opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 4000);
+        }
+
+        // Form Submit Handlers
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('contact-name').value;
+            showToast(`Thank you, ${name}! Your message has been sent successfully.`);
+            document.getElementById('contact-form').reset();
+            switchPage('home');
+        }
+
+        function handleSubscribeSubmit(e) {
+            e.preventDefault();
+            const email = document.getElementById('sub-email').value;
+            showToast(`Success! ${email} is now subscribed to Global Adventures.`);
+            document.getElementById('subscribe-form').reset();
+            switchPage('home');
+        }
+    </script>
+</body>
+</html>
