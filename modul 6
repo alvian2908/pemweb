@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discover Indonesia</title>
+
+    <link rel="icon" href="https://edube.org/uploads/media/default/0001/04/web-favicon.png" type="image/png">
+
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <h1>Discover Indonesia &#x1F1EE;&#x1F1E9;</h1>
+
+    <p>
+        Klik tombol untuk mengetahui wilayah Indonesia tempat kamu berada
+        dan beberapa keindahan geografis serta tempat terkenalnya.
+    </p>
+
+    <button id="discoverLocation">Temukan Lokasi Saya</button>
+
+    <h2>Peta Wilayah Indonesia</h2>
+
+    <img
+        src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgMjEGCE4grnmB1XNhHZWcmghv4vcR41h_YglbCHnSzVVICAKlgNheNZWF6yVPTG4e9IOWEJyJ9lP-VcKY_V7dxCtnAqAcXE5ifZxmkfVR6mw8oDy6zOjIz30w_oR-F3tvj-2q3AXN8r68/s2048/Peta+Indonesia+%2528logovectorXyz%2529.png"
+        alt="Peta Indonesia"
+        width="600"
+    >
+
+    <h2>Jelajahi Wilayah Indonesia</h2>
+
+    <button class="region" data-region="sumatra">Sumatra</button>
+    <button class="region" data-region="java">Jawa</button>
+    <button class="region" data-region="kalimantan">Kalimantan</button>
+    <button class="region" data-region="sulawesi">Sulawesi</button>
+    <button class="region" data-region="bali-nusa">Bali dan Nusa Tenggara</button>
+    <button class="region" data-region="maluku">Maluku</button>
+    <button class="region" data-region="papua">Papua</button>
+
+</body>
+</html>
